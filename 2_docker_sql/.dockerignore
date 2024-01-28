@@ -1,0 +1,8 @@
+# By default, ignore everything
+*
+ny_taxi_postgres_data
+docker
+
+# source files
+!*.py
+!*.sh

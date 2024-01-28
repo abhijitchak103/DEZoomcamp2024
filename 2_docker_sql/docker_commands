@@ -1,0 +1,130 @@
+services:
+    postgres:
+        image: postgres:13
+        environment:
+            POSTGRES_USER: airflow
+            POSTGRES_PASSWORD: airflow
+            POSTGRES_DB: airflow
+        volumes:
+            - postgres-db-volume:/var/lib/postgresql/data
+        healthcheck:
+            test: ["CMD", "pg_isready", "-U", "airflow"]
+            interval: 5s
+            retries: 5
+        restart: always
+
+## To start running postgres client from docker
+
+Step 1: 
+docker run -it \
+ -e POSTGRES_USER="root" \
+ -e POSTGRES_PASSWORD="root" \
+ -e POSTGRES_DB="ny_taxi" \
+ -v $(pwd)/ny_taxi_postgres_data:/var/lib/postgresql/data \
+ -p 5432:5432 \
+ postgres:13
+
+## If above command leads to an error, use the following:
+Step 1a: sudo service postgresql stop
+
+# Use docker postgres server
+Step 2: pgcli -h localhost -p 5432 -u root -d ny_taxi
+
+
+## Postgres commands
+
+# List of tables
+\dt
+
+## Yellow taxi links
+
+https://github.com/DataTalksClub/nyc-tlc-data/releases/tag/yellow
+
+## terminal handy commands
+# to see the first 100 rows of a large files
+head -n 100 <file_name>
+
+# to see number of rows of excel file
+wc -l <file_name>  # -l for lines
+
+
+## Incase you get the error that cannot import module psycopg2,
+## run the following commands
+sudo apt-get install libpq-dev
+pip install psycopg2
+
+
+# To Use pgadmin from docker image
+docker run -it \
+ -e PGADMIN_DEFAULT_EMAIL="admin@admin.com" \
+ -e PGADMIN_DEFAULT_PASSWORD="root" \
+ -p 8080:80 \
+ dpage/pgadmin4
+
+# However, this doesnot let the two connections to interact as there is no link.
+# Here, we need to put both the image connections inside a network
+
+docker network create pg-network
+
+# Start pgsql server
+docker run -it \
+ -e POSTGRES_USER="root" \
+ -e POSTGRES_PASSWORD="root" \
+ -e POSTGRES_DB="ny_taxi" \
+ -v $(pwd)/ny_taxi_postgres_data:/var/lib/postgresql/data \
+ -p 5432:5432 \
+ --network=pg-network \
+ --name pg-database \
+ postgres:13
+
+# Create pgadmin server
+docker run -it \
+ -e PGADMIN_DEFAULT_EMAIL="admin@admin.com" \
+ -e PGADMIN_DEFAULT_PASSWORD="root" \
+ -p 8080:80 \
+ --network=pg-network \
+ --name pgadmin \
+ dpage/pgadmin4
+
+
+# To ingest data directly using .py scripts and command line arguments.
+
+URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz"
+cd src
+python ingest_data.py \
+ --user=root \
+ --password=root \
+ --host=localhost \
+ --port=5432 \
+ --db=ny_taxi \
+ --table_name=yellow_taxi_trips \
+ --url=${URL}
+
+# Docker docker image for ingestion
+docker build -t taxi_ingest:v001 .
+
+docker run -it \
+ --network=pg-network \
+ taxi_ingest:v001 \
+ --user=root \
+ --password=root \
+ --host=pg-database \
+ --port=5432 \
+ --db=ny_taxi \
+ --table_name=yellow_taxi_trips \
+ --url=${URL}
+
+# Keystroke to clear screen in pgcli
+!\ clear
+
+# Restart Docker
+sudo systemctl restart docker.socket docker.service
+
+
+# stop a container listening to a port
+sudo kill -9 `sudo lsof -t -i:<port>`
+
+or
+
+netstat -nlp | grep 8888
+kil <PID>
