@@ -1,0 +1,23 @@
+# Copy the contents of Mage Zoomcamp
+`
+git clone /home/abhijit/git/mage-zoomcamp/dev.env /home/abhijit/git/mage-zoomcamp/docker-compose.yml /home/abhijit/git/mage-zoomcamp/Dockerfile /home/abhijit/git/mage-zoomcamp/README.md /home/abhijit/git/mage-zoomcamp/requirements.txt
+`
+# Set up environment variables
+
+```
+cd mage # assuming, your contents from previous git clone live in mage folder
+cp dev.env .env # Remember to add .env to your .gitignore
+
+
+# Build docker file
+docker-compose build
+
+
+# Incase, you need to update mage
+docker pull mageai/mageai:latest
+
+# To start running mage
+docker-compose up
+
+
+# Next up on mage page 
