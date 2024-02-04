@@ -40,3 +40,6 @@ Go to Pipelines > New Pipeline > New (Standard (batch)) > Data loader > SQL
 On Connection, select PostgresSQL > On profile, select dev > Click on Use raw sql which enables 
 user to use direct sql queries
 
+# To add gcp credentials
+> Copy the .json service account key payload to mage directory
+> provide the path to the file in the io_config.yaml under "GOOGLE_SERVICE_ACC_KEY_FILEPATH:"
