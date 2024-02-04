@@ -6,6 +6,7 @@ blocks:
       path: transformers/transform_data.py
   downstream_blocks:
   - to_gcs_parquet
+  - to_gcs_partition_parquet
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -52,6 +53,22 @@ blocks:
   upstream_blocks:
   - transform_data
   uuid: to_gcs_parquet
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: to_gcs_partition_parquet
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transform_data
+  uuid: to_gcs_partition_parquet
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
@@ -73,7 +90,7 @@ settings:
 spark_config: {}
 tags: []
 type: python
-updated_at: '2024-02-04 08:37:37'
+updated_at: '2024-02-04 09:59:32'
 uuid: api_to_gcp
 variables_dir: /home/src/mage_data/magic-zoomcamp
 widgets: []
