@@ -1,3 +1,4 @@
 {"operation": "create", "resource": {"type": "pipeline", "uuid": "epic_rune"}, "timestamp": 1707034363, "user": null}
 {"operation": "create", "resource": {"type": "pipeline", "uuid": "enigmatic_river"}, "timestamp": 1707035281, "user": null}
 {"operation": "create", "resource": {"type": "pipeline", "uuid": "solitary_crafter"}, "timestamp": 1707039681, "user": null}
+{"operation": "create", "resource": {"type": "pipeline", "uuid": "ephemeral_amulet"}, "timestamp": 1707048789, "user": null}
