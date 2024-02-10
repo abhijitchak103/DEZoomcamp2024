@@ -4,6 +4,7 @@ Orchestration Examples and solutions
 
 ### Setup the data
 
+```
 @data_loader
 def load_data_from_api(*args, **kwargs):
     """
@@ -44,6 +45,7 @@ def load_data_from_api(*args, **kwargs):
         df = pd.concat([df, df_current], ignore_index=True)
 
     return df
+```
 
 ### Question 1: Data Loadking
 
@@ -55,7 +57,7 @@ Once the dataset is loaded, what's the shape of the data?
 
 Upon filtering the dataset where the passenger count is greater than 0 and the trip distance is greater than zero, how many rows are left?
 
-
+```
 @transformer
 def transform(data, *args, **kwargs):
     """
@@ -107,6 +109,7 @@ def test_output(output, *args) -> None:
     Assertion block for trip distance.
     """
     assert output['trip_distance'].isin([0]).sum() == 0, 'Output has 0 trip distance rows.'
+```
 
 **Solution: 139370 rows**
 
@@ -128,7 +131,7 @@ How many columns need to be renamed to snake case?
 ### Question 6: Data Exporting
 Once exported, how many partitions (folders) are present in Google Cloud?
 
-
+```
 @data_exporter
 def export_data_to_postgres(df: DataFrame, **kwargs) -> None:
     """
@@ -150,6 +153,7 @@ def export_data_to_postgres(df: DataFrame, **kwargs) -> None:
             index=False,  # Specifies whether to include index in exported table
             if_exists='replace',  # Specify resolution policy if table name already exists
         )
+```
 
 **Solution: 95 folders are created**
 
