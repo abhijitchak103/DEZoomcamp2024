@@ -102,12 +102,18 @@ SELECT count(distinct(PULocationID)) from dtc-de-course-411615.nytaxi_hw.green_t
 
 How many records have a fare_amount of 0?
 
+#### Queries
+```
+-- Query to find number of records with fare_amount 0
+SELECT count(fare_amount) FROM dtc-de-course-411615.nytaxi_hw.green_external
+WHERE fare_amount = 0;
+```
 - 12,488
 - 128,219
 - 112
 - 1,622
 
-**Solution:**
+**Solution:1622**
 
 ### Question 4
 
