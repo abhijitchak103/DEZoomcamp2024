@@ -61,16 +61,42 @@ What is count of records for the 2022 Green Taxi Data?
 
 **Solution: 840402**
 
+### Creating Tables
+```
+-- Creating external table referring to gcs path
+CREATE OR REPLACE EXTERNAL TABLE dtc-de-course-411615.nytaxi_hw.green_external 
+OPTIONS 
+(
+  format = 'PARQUET',
+  uris = ['gs://mage-abhijit-1/ny_taxi_data.parquet']
+);
+
+
+-- Creating table referring to gcs path
+CREATE OR REPLACE TABLE dtc-de-course-411615.nytaxi_hw.green_trip
+AS 
+SELECT * FROM dtc-de-course-411615.nytaxi_hw.green_external;
+```
+
 ### Question 2
 
 Write a query to count the distinct number of PULocationIDs for the entire dataset on both the tables. What is the estimated amount of data that will be read when this query is executed on the External Table and the Table?
+
+#### Queries
+```
+-- Query from external table
+SELECT count(distinct(PULocationID)) from dtc-de-course-411615.nytaxi_hw.green_external;
+
+-- Query from materialized table
+SELECT count(distinct(PULocationID)) from dtc-de-course-411615.nytaxi_hw.green_trip;
+```
 
 - 0 MB for the External Table and 6.41MB for the Materialized Table
 - 18.82 MB for the External Table and 47.60 MB for the Materialized Table
 - 0 MB for the External Table and 0MB for the Materialized Table
 - 2.14 MB for the External Table and 0MB for the Materialized Table
 
-**Solution:**
+**Solution: 0 MB for the External Table and 6.41MB for the Materialized Table**
 
 ### Question 3
 
