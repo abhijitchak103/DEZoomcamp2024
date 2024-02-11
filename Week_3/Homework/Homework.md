@@ -119,12 +119,21 @@ WHERE fare_amount = 0;
 
 What is the best strategy to make an optimized table in Big Query if your query will always order the results by PUlocationID and filter based on lpep_pickup_datetime? (Create a new table with this strategy)
 
+#### Queries
+```
+-- Creating a partition and cluster table
+CREATE OR REPLACE TABLE dtc-de-course-411615.nytaxi_hw.green_partitioned_clustered
+PARTITION BY lpep_pickup_datetime
+CLUSTER BY PULocationID AS
+SELECT * FROM dtc-de-course-411615.nytaxi_hw.green_external;
+```
+
 - Cluster on lpep_pickup_datetime Partition by PUlocationID
 - Partition by lpep_pickup_datetime Cluster on PUlocationID
 - Partition by lpep_pickup_datetime and Partition by PUlocationID
 - Cluster on by lpep_pickup_datetime and Cluster on PUlocationID
 
-**Solution:**
+**Solution: Partition by lpep_pickup_datetime Cluster on PUlocationID**
 
 ### Question 5
 
@@ -134,14 +143,29 @@ Use the materialized table you created earlier in your from clause and note the 
 
 Choose the answer which most closely matches.
 
+#### Queries
+```
+-- Querying from a non-partitioned table
+-- Estimated 12.82 MB
+SELECT DISTINCT(PULocationID)
+FROM dtc-de-course-411615.nytaxi_hw.green_trip
+WHERE lpep_pickup_datetime BETWEEN '2022-06-01' AND '2022-06-30';
+
+-- Querying from a partitioned table
+--Estimated 1.12 MB
+SELECT DISTINCT(PULocationID)
+FROM dtc-de-course-411615.nytaxi_hw.green_partitioned_clustered
+WHERE lpep_pickup_datetime BETWEEN '2022-06-01' AND '2022-06-30';
+```
+
 - 22.82 MB for non-partitioned table and 647.87 MB for the partitioned table
 - 12.82 MB for non-partitioned table and 1.12 MB for the partitioned table
 - 5.63 MB for non-partitioned table and 0 MB for the partitioned table
 - 10.31 MB for non-partitioned table and 10.31 MB for the partitioned table
 
-**Solution:**
+**Solution: 12.82 MB for non-partitioned table and 1.12 MB for the partitioned table**
 
-### Question 5
+### Question 6
 
 Where is the data stored in the External Table you created?
 
@@ -150,7 +174,7 @@ Where is the data stored in the External Table you created?
 - Big Table
 - Container Registry
 
-**Solution:**
+**Solution: GCP Bucket**
 
 ### Question 7
 
@@ -159,7 +183,7 @@ It is best practice in Big Query to always cluster your data:
 - True
 - False
 
-**Solution:**
+**Solution: False**
 
 (Bonus: Not worth points) 
 ### Question 8
