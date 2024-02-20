@@ -23,8 +23,8 @@ def transform(data, *args, **kwargs):
         Anything (e.g. data frame, dictionary, array, int, str, etc.)
     """
 
-    data['lpep_pickup_datetime'] = pd.to_datetime(data['lpep_pickup_datetime']).dt.date
-    data['lpep_dropoff_datetime'] = pd.to_datetime(data['lpep_dropoff_datetime']).dt.date
+    data['tpep_pickup_datetime'] = pd.to_datetime(data['tpep_pickup_datetime']).dt.date
+    data['tpep_dropoff_datetime'] = pd.to_datetime(data['tpep_dropoff_datetime']).dt.date
 
     return data
 
