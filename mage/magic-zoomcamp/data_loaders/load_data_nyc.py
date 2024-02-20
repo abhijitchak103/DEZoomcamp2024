@@ -12,7 +12,7 @@ def load_data_from_api(*args, **kwargs):
     """
     Load data from url
     """
-    url_base = 'https://d37ci6vzurychx.cloudfront.net/trip-data/green_tripdata_2022-'
+    url_base = 'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-'
 
     url_initial = url_base + '01.parquet'
 
@@ -32,8 +32,6 @@ def load_data_from_api(*args, **kwargs):
         df = pd.concat([df, df_current], ignore_index=True)
         print(f'Number of rows after appending {month}: {df.shape[0]}')
         print('-'*50)
-
-    # print(df['lpep_pickup_datetime'].dtype)
 
     return df
 
