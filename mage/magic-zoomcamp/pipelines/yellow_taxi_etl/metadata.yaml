@@ -1,42 +1,23 @@
 blocks:
-- all_upstream_blocks_executed: false
-  color: null
-  configuration:
-    file_source:
-      path: transformers/transform_data.py
-  downstream_blocks:
-  - to_gcs_parquet
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: transform_data_hw
-  retry_config: null
-  status: executed
-  timeout: null
-  type: transformer
-  upstream_blocks:
-  - load_data_nyc
-  uuid: transform_data_hw
 - all_upstream_blocks_executed: true
   color: null
   configuration:
     file_source:
       path: data_loaders/load_data_nyc.py
   downstream_blocks:
-  - transform_data_hw
+  - transform_datetime
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
   name: load_data_nyc
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: data_loader
   upstream_blocks: []
   uuid: load_data_nyc
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
   color: null
   configuration:
     file_source:
@@ -48,12 +29,31 @@ blocks:
   language: python
   name: to_gcs_parquet
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - transform_data_hw
+  - transform_datetime
   uuid: to_gcs_parquet
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transform_datetime.py
+  downstream_blocks:
+  - to_gcs_parquet
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_datetime
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - load_data_nyc
+  uuid: transform_datetime
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
