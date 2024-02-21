@@ -3,57 +3,57 @@ blocks:
   color: null
   configuration:
     file_source:
-      path: data_loaders/load_data_nyc.py
+      path: data_loaders/load_csv_unmage.py
   downstream_blocks:
-  - transform_datetime
+  - transform_fhv_datetime
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: load_data_nyc
+  name: load_csv_unmage
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: data_loader
   upstream_blocks: []
-  uuid: load_data_nyc
-- all_upstream_blocks_executed: true
+  uuid: load_csv_unmage
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     file_source:
-      path: data_exporters/to_gcs_parquet.py
+      path: transformers/transform_fhv_datetime.py
+  downstream_blocks:
+  - to_gcs_fhv_parquet
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_fhv_datetime
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - load_csv_unmage
+  uuid: transform_fhv_datetime
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    file_source:
+      path: data_exporters/to_gcs_fhv_parquet.py
   downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: to_gcs_parquet
+  name: to_gcs_fhv_parquet
   retry_config: null
-  status: executed
+  status: not_executed
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - transform_datetime
-  uuid: to_gcs_parquet
-- all_upstream_blocks_executed: true
-  color: null
-  configuration:
-    file_source:
-      path: transformers/transform_datetime.py
-  downstream_blocks:
-  - to_gcs_parquet
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: transform_datetime
-  retry_config: null
-  status: executed
-  timeout: null
-  type: transformer
-  upstream_blocks:
-  - load_data_nyc
-  uuid: transform_datetime
+  - transform_fhv_datetime
+  uuid: to_gcs_fhv_parquet
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
@@ -65,7 +65,7 @@ executor_config: {}
 executor_count: 1
 executor_type: null
 extensions: {}
-name: yellow_taxi_etl
+name: fhv_data_etl
 notification_config: {}
 remote_variables_dir: null
 retry_config: {}
@@ -75,6 +75,6 @@ settings:
 spark_config: {}
 tags: []
 type: python
-uuid: yellow_taxi_etl
+uuid: fhv_data_etl
 variables_dir: /home/src/mage_data/magic-zoomcamp
 widgets: []
