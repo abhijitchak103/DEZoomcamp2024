@@ -1,16 +1,15 @@
 import pandas as pd
 import io
 
-url_base = 'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_'
+
+url_base = 'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/fhv/fhv_tripdata_'
 month = '2019-01'
 extension = '.csv.gz'
 
 url = url_base + month + extension
 
 months = ['2019-02', '2019-03', '2019-04', '2019-05', '2019-06', 
-        '2019-07', '2019-08', '2019-09', '2019-10', '2019-11', '2019-12', 
-        '2020-02', '2020-03', '2020-04', '2020-05', '2020-06', 
-        '2020-07', '2020-08', '2020-09', '2020-10', '2020-11', '2020-12',]
+        '2019-07', '2019-08', '2019-09', '2019-10', '2019-11', '2019-12']
 
 taxi_dtypes = {
     'VendorID': pd.Int64Dtype(),
@@ -31,7 +30,7 @@ taxi_dtypes = {
     'congestion_surcharge': float 
 }
 
-parse_dates = ['tpep_pickup_datetime', 'tpep_dropoff_datetime']
+parse_dates = ['pickup_datetime', 'dropOff_datetime']
 
 df = pd.read_csv(url, sep=',', compression='gzip', parse_dates=parse_dates)
 
