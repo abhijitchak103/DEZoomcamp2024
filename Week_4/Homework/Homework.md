@@ -27,7 +27,7 @@
 - 32998722
 - 42998722
 
-**Solution:**
+**Solution: 22998722**
 
 ### Q4. What is the service that had the most rides during the month of July 2019 month with the biggest amount of rides after building a tile for the fact_fhv_trips table?
 
@@ -36,4 +36,5 @@
 - Yellow
 - FHV and Green
 
-**Solution:**
+**Solution: Yellow**
+**[Link to Dashboard](https://github.com/mraabhijit/DEZoomcamp2024/blob/main/Week_4/Homework/NYC_Taxi_Trips_2019-2020.pdf)**
