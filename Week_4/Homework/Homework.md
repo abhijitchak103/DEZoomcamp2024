@@ -28,6 +28,7 @@
 - 42998722
 
 **Solution: 22998722**
+- **[Link to query for fact_fhv_trips table](https://github.com/mraabhijit/DEZoomcamp2024/blob/main/Week_4/Homework/models/core/fact_fhv_trips.sql)**
 
 ### Q4. What is the service that had the most rides during the month of July 2019 month with the biggest amount of rides after building a tile for the fact_fhv_trips table?
 
@@ -37,4 +38,4 @@
 - FHV and Green
 
 **Solution: Yellow**
-**[Link to Dashboard](https://github.com/mraabhijit/DEZoomcamp2024/blob/main/Week_4/Homework/NYC_Taxi_Trips_2019-2020.pdf)**
+- **[Link to Dashboard](https://github.com/mraabhijit/DEZoomcamp2024/blob/main/Week_4/Homework/NYC_Taxi_Trips_2019-2020.pdf)**
